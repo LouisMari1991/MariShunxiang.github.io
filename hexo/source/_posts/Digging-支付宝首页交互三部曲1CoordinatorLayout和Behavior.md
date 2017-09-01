@@ -250,11 +250,8 @@ public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
 LayoutParams默认有多个不同参数的构造方法 :
 
 * LayoutParams(Context context, AttrbuteSet attr) 使用于解析布局文件时生成LayoutParams , layout相关的xml属性 , 就是在这个构造方法里面解析的
-
 * LayoutParams(int width, int height) 代码构建时只传入宽高
-
 * LayoutParams(LayoutParams source) LayoutParams转换
-
 * LayoutParams() 无参构造函数
 
 自定义LayoutParams也要覆写这些构造方法并做相应的转换。
