@@ -20,3 +20,7 @@ categories: Android
 第二篇文章主要用经典的CoordinatorLayout、AppBarLayout、RecyclerView的联动场景（CAR场景）来分析一下自定义Behavior需要关注的内容 , 以及如何自定义一个Behavior。同时 , 支付宝首页效果和AppBarLayout的效果有相似之处 , 分析CAR场景 , 也有意于后文实现支付宝首页效果。
 
 >这篇文章适合同时阅读源码 , 如果已经读过源码 , 可以直接诶跳到最后总结。
+
+### Support中的Behavior基类
+
+CAR场景中一共出现了两个Behavior , AppbarLayout.Behavior和AppbarLayout.ScrollingViewBehavior , 前者应用于ABL , 后者应用于RV。这两个Behavior是我们这篇文章要分析的主要的类 , 但是在开始之前 , 我们要看一下它们的基类（职责分隔的很不错）。

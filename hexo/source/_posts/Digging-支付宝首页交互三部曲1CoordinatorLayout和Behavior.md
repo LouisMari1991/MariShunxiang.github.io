@@ -15,7 +15,7 @@ categories: Android
 * 自定义CoordiantorLayout和Behavior
 * 支付宝首页效果实现
 
-> 文中 : Col 表示 CoordinatorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 SwipeRefreshLaout , RV 表示 RecyclerVIew。
+> 文中 : Col 表示 CoordiantorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 SwipeRefreshLaout , RV 表示 RecyclerVIew。
 
 第一篇文章主要讨论Behavior的结构、CoordianatorLayout的实现以及Coordianator和Behavoir之间的通信。除了Behavior相关的内容 , CoordinarotLayout作为官方实现的一个ViewGroup , 也有一些自定义ViewGroup时可以借鉴的内容 , 这些也穿插在这篇文章中。
 
