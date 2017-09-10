@@ -166,11 +166,11 @@ Touch事件分发分两个方法onInterceptTouchEvent和onTouchEvent。 CoL的�
 
 处于篇幅考虑这里不贴源码了 , 关键的地方这里解释一下 :
 
-- 在遍历子View之前 , 使用`getTopSortedChildren(topmostChildList);`获取按照显示顺序自上至下排效果的子View列表。 ViewGroup可以复写`getChildDrawingOrder`自定义子View的绘制顺序 , getTopSortedChildren方法会按照绘制顺序获取子View ; 在5.0以上版本中 , 还要考虑Z轴次序 , 也就是elevation , 会再进行一次排序 , 最终得到真实可靠的自顶之下的子View分发顺序。这对让子View合理响应Touch事件很重要 , 如果自定义ViewGroup需要有类似功能 , 可以参考CoL的实现。
+ - 在遍历子View之前 , 使用`getTopSortedChildren(topmostChildList);`获取按照显示顺序自上至下排效果的子View列表。 ViewGroup可以复写`getChildDrawingOrder`自定义子View的绘制顺序 , getTopSortedChildren方法会按照绘制顺序获取子View ; 在5.0以上版本中 , 还要考虑Z轴次序 , 也就是elevation , 会再进行一次排序 , 最终得到真实可靠的自顶之下的子View分发顺序。这对让子View合理响应Touch事件很重要 , 如果自定义ViewGroup需要有类似功能 , 可以参考CoL的实现。
 
-- Behavior通过覆写`onInterceptTouch`或者`onTouchEvent`并返回true来声明拦截事件 , Col会将该View缓存到mBehaviorTouchView属性 , 后续事件将直接分发到该View。直到该View的onTouchEvent方法返回false。
+ - Behavior通过覆写`onInterceptTouch`或者`onTouchEvent`并返回true来声明拦截事件 , Col会将该View缓存到mBehaviorTouchView属性 , 后续事件将直接分发到该View。直到该View的onTouchEvent方法返回false。
 
-- 在确定mBehaviorTouchView之后 , CoL会将该View（Z轴）下面View的事件流终止 , 具体操作是向这些View分发一个CANCEL事件。
+ - 在确定mBehaviorTouchView之后 , CoL会将该View（Z轴）下面View的事件流终止 , 具体操作是向这些View分发一个CANCEL事件。
 
 >Behavior可以通过覆写blocksInteractionBelow方法block下方View的事件。 在自己不需要处理事件但同时不希望子View处理事件时 , 可以简单的覆写这个方法。
 
