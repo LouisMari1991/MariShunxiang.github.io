@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NestedScrolling," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mari's Notes" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言自己动手实现支付宝首页效果 , 用三篇文章记录并分享给大家。  CoordinatorLayout和Behavior 自定义CoordiantorLayout和Behavior 支付宝首页效果实现   文中 : Col 表示 CoordinatorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 Swi">
+<meta name="keywords" content="NestedScrolling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Digging]支付宝首页交互三部曲2自定义Behavior">
+<meta property="og:url" content="http://yoursite.com/2017/09/01/Digging-支付宝首页交互三部曲2自定义Behavior/index.html">
+<meta property="og:site_name" content="Mari&#39;s Notes">
+<meta property="og:description" content="前言自己动手实现支付宝首页效果 , 用三篇文章记录并分享给大家。  CoordinatorLayout和Behavior 自定义CoordiantorLayout和Behavior 支付宝首页效果实现   文中 : Col 表示 CoordinatorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 Swi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/7fa7fd062bad4bd7d01c3d8bcd65672d.png">
+<meta property="og:updated_time" content="2018-06-09T09:12:58.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Digging]支付宝首页交互三部曲2自定义Behavior">
+<meta name="twitter:description" content="前言自己动手实现支付宝首页效果 , 用三篇文章记录并分享给大家。  CoordinatorLayout和Behavior 自定义CoordiantorLayout和Behavior 支付宝首页效果实现   文中 : Col 表示 CoordinatorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 Swi">
+<meta name="twitter:image" content="http://otiwf3ulm.bkt.clouddn.com/7fa7fd062bad4bd7d01c3d8bcd65672d.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/01/Digging-支付宝首页交互三部曲2自定义Behavior/"/>
+
+
+
+
+
+  <title>[Digging]支付宝首页交互三部曲2自定义Behavior | Mari's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mari's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/01/Digging-支付宝首页交互三部曲2自定义Behavior/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mari">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mari's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Digging]支付宝首页交互三部曲2自定义Behavior</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-01T20:52:13+08:00">
+                2017-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://otiwf3ulm.bkt.clouddn.com/7fa7fd062bad4bd7d01c3d8bcd65672d.png" alt="digging2"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己动手实现支付宝首页效果 , 用三篇文章记录并分享给大家。</p>
+<ul>
+<li>CoordinatorLayout和Behavior</li>
+<li>自定义CoordiantorLayout和Behavior</li>
+<li>支付宝首页效果实现</li>
+</ul>
+<blockquote>
+<p>文中 : Col 表示 CoordinatorLayout , ABL 表示AppBarLayout , CTL 表示 CollapsingToolbarLayout , SRL 表示 SwipeRefreshLaout , RV 表示 RecyclerVIew。</p>
+</blockquote>
+<p>第二篇文章主要用经典的CoordinatorLayout、AppBarLayout、RecyclerView的联动场景（CAR场景）来分析一下自定义Behavior需要关注的内容 , 以及如何自定义一个Behavior。同时 , 支付宝首页效果和AppBarLayout的效果有相似之处 , 分析CAR场景 , 也有意于后文实现支付宝首页效果。</p>
+<blockquote>
+<p>这篇文章适合同时阅读源码 , 如果已经读过源码 , 可以直接诶跳到最后总结。</p>
+</blockquote>
+<h3 id="Support中的Behavior基类"><a href="#Support中的Behavior基类" class="headerlink" title="Support中的Behavior基类"></a>Support中的Behavior基类</h3><p>CAR场景中一共出现了两个Behavior , AppBarLayout.Behavior和AppBarLayout.ScrollingViewBehavior , 前者应用于ABL , 后者应用于RV。这两个Behavior是我们这篇文章要分析的主要的类 , 但是在开始之前 , 我们要看一下它们的基类（职责分隔的很不错）。</p>
+<h4 id="ViewOffsetBehavior"><a href="#ViewOffsetBehavior" class="headerlink" title="ViewOffsetBehavior"></a>ViewOffsetBehavior</h4><p>使用ViewOffsetHelper工具类封装View的偏移量。View类支持对offset进行偏移 , 但是并不会保存偏移量。ViewOffsetHelper对Offset和Top/left进行缓存 , 使用ViewCompat工具类进行偏移处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private void updateOffsets() &#123;</span><br><span class="line">  ViewCompat.offsetTopAndBottom(mView, mOffsetTop - (mView.getTop() - mLayoutTop));</span><br><span class="line">  ViewCompat.offsetLeftAndRight(mView, mOffsetLeft - (mView.getLeft() - mLayoutLeft));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ViewOffsetBehavior除了封装了对水平和垂直方向偏移的Setter和Getter方法 , 还覆写了<code>onLaoutChild()</code>方法 , 上一篇文章中有提到 , 实现这个方法可以代理CoL对子View的布局。不过ViewOffsetBehavior覆写这个方法的目的主要是创建ViewOffsetHelper , 获取真实偏移量并且将child偏移到正确位置。</p>
+<blockquote>
+<p>说句题话外 , 当我们考虑一个滑动交互时 , 不要把滑动看做一个连续的过程 , 而是要拆分成多个单独的循环过程 , 连续的滑动只不过是单独循环过程在时间上不断重复而已 ； 而滑动的单个循环过程 , 说到底是对View进行偏移处理。当看到一个复杂交互效果的时候 , 要学会拆分 , 一个是刚说的时间上拆分 , 另一个方面就是要能拆分成多个单独效果的合成 , 能做到这一步 , 再加上牢固的基础 , 就没有什么交互效果是做不出来的。</p>
+</blockquote>
+<h4 id="HeaderBehavior"><a href="#HeaderBehavior" class="headerlink" title="HeaderBehavior"></a>HeaderBehavior</h4><p>HeaderBehavior封装了经典Touch事件分发逻辑 , 主要是实现了Behavior的<code>onInterceptTouchEvent</code>方法和<code>onTouchEvent</code>方法　, 逻辑其实也很简单 :</p>
+<ul>
+<li>判断是否可以滑动</li>
+<li>当滑动超过阀值之后 , 标记滑动（mIsBeingDragged）并进行拦截</li>
+<li>处理ACTION_MOVE事件　, 调用ViewOffsetBehavior的方法进行偏移</li>
+<li>使用VelocityTracker计算滑动速度</li>
+<li>在ACTION_UP分之中停止并判断是否应该Fling</li>
+<li><p>实现scroll和fling方法</p>
+<p>HeaderBehavior的实现简单且清晰 , 都可以当作经典Touch事件实现活动的范例了 , 有这方面需求的同学不要错过。因为HeaderBehavior的定位很明确 , 实现类似AppBarLayout类似的Header功能 , 所以只处理了纵向滑动。</p>
+</li>
+</ul>
+<p>除了scroll和fling暴露给子类的方法主要是<code>setHeaderTopBoottimOffset</code> , 这个方法一共有两个重载声明 , 可以设置边界值避免滑动越界。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int setHeaderTopBottomOffset(CoordinatorLayout parent, V header, int newOffset) &#123;</span><br><span class="line">    return setHeaderTopBottomOffset(parent, header, newOffset,</span><br><span class="line">            Integer.MIN_VALUE, Integer.MAX_VALUE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int setHeaderTopBottomOffset(CoordinatorLayout parent, V header, int newOffset,</span><br><span class="line">        int minOffset, int maxOffset) &#123;</span><br><span class="line">    final int curOffset = getTopAndBottomOffset();</span><br><span class="line">    int consumed = 0;</span><br><span class="line"></span><br><span class="line">    if (minOffset != 0 &amp;&amp; curOffset &gt;= minOffset &amp;&amp; curOffset &lt;= maxOffset) &#123;</span><br><span class="line">        // If we have some scrolling range, and we&apos;re currently within the min and max</span><br><span class="line">        // offsets, calculate a new offset</span><br><span class="line">        newOffset = MathUtils.constrain(newOffset, minOffset, maxOffset);</span><br><span class="line"></span><br><span class="line">        if (curOffset != newOffset) &#123;</span><br><span class="line">            setTopAndBottomOffset(newOffset);</span><br><span class="line">            // Update how much dy we have consumed</span><br><span class="line">            consumed = curOffset - newOffset;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return consumed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个方法是有返回值的 , 这个返回值在子类中处理嵌套滑动或者再次分发滑动是非常有用。</p>
+</blockquote>
+<h4 id="HeaderScrollingViewBehavior"><a href="#HeaderScrollingViewBehavior" class="headerlink" title="HeaderScrollingViewBehavior"></a>HeaderScrollingViewBehavior</h4><p>同样继承自ViewOffsetBehavior , HeaderScrollingViewBehavior的职责主要是完成对ScrollingView的布局。 CoL的职责是给子类提供协调滚动的接口 , 并不会具体实现某种效果 , 所有子类需要完成的功能和效果 , 都需要通过统一接口Behavior完成。</p>
+<p>在Header+ScrollingView的结构中 , HeaderScrollingViewBehavior就是对ScrollingView的控制。 <strong>这两者结合要实现的就是MaterialDesign中经典的可收起Header的效果。</strong></p>
+<p>为了让Header可收起 , 视觉上ScrollingView的高度被拉长了 , 但实际上ScrollingView的高度并没有变 , 变的是ScrollingView的位置。ScrollingView的测量和布局就是HeaderScrollingViewBehavior的实现内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">final int childLpHeight = child.getLayoutParams().height;</span><br><span class="line">if (childLpHeight == ViewGroup.Layout.MATCH_PARENT || childLpHeight == ViewGroup.LayoutParams.WRAP_CONTENT) &#123;</span><br><span class="line">  // If the menu&apos;s height is set match_parent/wrap_content then measure it</span><br><span class="line">  // with the maximum visible height</span><br><span class="line"></span><br><span class="line">      // &#123;...&#125;</span><br><span class="line">      return true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">return false;</span><br></pre></td></tr></table></figure>
+<p><code>onMeasureChild</code>方法中的注释说明了只要child和LayoutParams是MATCH_PARENT或者WRAP_CONTENT , 就设置child的高度为<strong>最大可见高度。</strong> 这里的最大可见高度包含除了header之外的区域以及header收起时额外空出的区域 , 也就是<strong>header的可滚动区域。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int availableHeight = View.MeasureSpec.getSize(parentHeightMeasureSpec);</span><br><span class="line">if (availableHeight == 0) &#123;</span><br><span class="line">    // If the measure spec doesn&apos;t specify a size, use the current height</span><br><span class="line">    availableHeight = parent.getHeight();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">final int height = availableHeight - header.getMeasuredHeight()</span><br><span class="line">        + getScrollRange(header);</span><br></pre></td></tr></table></figure>
+<p><code>onLayout</code> 中将ScrollingView置于header下方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">available.set(</span><br><span class="line">  parent.getPaddingLeft() + lp.leftMargin,</span><br><span class="line">  header.getBottom() + lp.topMargin,</span><br><span class="line">  parent.getWidth() - parent.getPaddingRight() - lp.rightMargin,</span><br><span class="line">  parent.getHeight() + header.getBottom() - parent.getPaddingBottom() - lp.bottomMargin</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>注意这里Rect的top值取<code>header.getBottom() + lp.topMargin</code> , 而不是 <code>getPaddingTop() + header.getHeight + lp.topMargin</code> , 这是因为header在onLayout时可能已经包含偏移量 , 不能<strong>假定</strong>header在初始位置 , 即便可能90%的情况均是如此。</p>
+<p>说句题外话 , 项目开发过程中会遇到很多这类情况 , 有多种实现方式都能达到预期效果 , 但并不是所有的实现方案都是完整符合<strong>预期逻辑</strong>的。比如上面的例子 , ScrollingView的预期位置是header下方 , 而不是父控件中除header高度以外的区域。有的时候 , 需要转换角度看问题 , 体会下这其中的区别。</p>
+<h4 id="AppBarLayout-Behavior"><a href="#AppBarLayout-Behavior" class="headerlink" title="AppBarLayout.Behavior"></a>AppBarLayout.Behavior</h4><p>AppBarLayout.ScrollingViewBehavior相对简单 , 这里略过。 AppbarLayout.Behavior继承自HeaderBehavior , 在其基础上 , 主要实现了以下功能：</p>
+<ol>
+<li><p>支持在布局文件中定义滚动效果：SCROLL/ECIT_UNTIL_COLLAPSED/ENTER_ALWAYLS/ENTER_ALWAYLS_COLLAPSED/SMAP</p>
+</li>
+<li><p>实现NestedScrolling回调</p>
+</li>
+</ol>
+<p>滚动效果不是这篇文章的重点 , 我们主要看下NestedScrolling的相关实现。</p>
+<p><strong>onStartNestedScroll</strong></p>
+<p>判断是否是否为纵向滑动 , 并且AppBarLayout支持折叠并且ScrollingView的大小超出屏幕范围。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Return true if we&apos;re nested scrolling vertically, and we have scrollable children</span><br><span class="line">// and the scrolling view is big enough to scroll</span><br><span class="line">final boolean started = (nestedScrollAxes &amp; ViewCompat.SCROLL_AXIS_VERTICAL) != 0</span><br><span class="line">        &amp;&amp; child.hasScrollableChildren()</span><br><span class="line">        &amp;&amp; parent.getHeight() - directTargetChild.getHeight() &lt;= child.getHeight();</span><br></pre></td></tr></table></figure>
+<p><strong>onNestedPreScroll</strong></p>
+<p>这个方法回提前于 ScrollingView 消费滑动事件。AppBarLayout 的 scrollFlags , 也就是上面说的滚动效果会影响 onNestedPreScroll 方法的实现。抛开这个影响 , 这个方法中 , 首先确定 AppBarLayout 的可滑动范围 , 然后调用 <code>scroll()</code> 方法（继承自ViewOffsetBehavior）进行滚动 , 并将消费多少传递给 <code>consumed</code> 数组。</p>
+<p><strong>onNestedScroll</strong></p>
+<p>如果向下滚动时 , 在ScrollingVIew消费完滑动时间之后 , 还有剩余 , 说明 ScrollingView 已经滚动到顶部 , AppBarLayout 开始展开。</p>
+<p><strong>onNestedFling</strong></p>
+<p>这里并没有进行精确的消费 , 只是当ScrollingView触发flag时 , 对 AppbarLayout 执行动画 , 展开或者收起。<strong>下篇文章实现支付宝首页效果时 , 实现了对 fling 的精确消费。</strong></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>自定义Behavior主要关心一下两个方面：</p>
+<ol>
+<li><p>测量和布局</p>
+</li>
+<li><p>实现滑动效果</p>
+</li>
+</ol>
+<p>其中滑动效果有三种实现方式：</p>
+<ol>
+<li><p>经典Touch事件</p>
+</li>
+<li><p>NestedScrolling</p>
+</li>
+<li><p>LayoutDependent</p>
+</li>
+</ol>
+<p>一般情况下 , CoL的child , 如果自身不可滚动 , 需要实现NestedScrolling来进行联动 , 或者实现Touch事件回调。如果自身可以滚动 , 通过 <code>onDependentViewChanged</code> 方法来响应其他View的偏移量改变事件。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NestedScrolling/" rel="tag"># NestedScrolling</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/30/Digging-支付宝首页交互三部曲1CoordinatorLayout和Behavior/" rel="next" title="[Digging]支付宝首页交互三部曲1CoordinatorLayout和Behavior">
+                <i class="fa fa-chevron-left"></i> [Digging]支付宝首页交互三部曲1CoordinatorLayout和Behavior
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mari</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Support中的Behavior基类"><span class="nav-number">2.</span> <span class="nav-text">Support中的Behavior基类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewOffsetBehavior"><span class="nav-number">2.1.</span> <span class="nav-text">ViewOffsetBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HeaderBehavior"><span class="nav-number">2.2.</span> <span class="nav-text">HeaderBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HeaderScrollingViewBehavior"><span class="nav-number">2.3.</span> <span class="nav-text">HeaderScrollingViewBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AppBarLayout-Behavior"><span class="nav-number">2.4.</span> <span class="nav-text">AppBarLayout.Behavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mari</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

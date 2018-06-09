@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="markdown," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mari's Notes" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="因为对markdown比较感兴趣,平时的文档编写都是用markdown来完成.以前是用csdn的博客编辑器,支持图片上传,预览. 最近在公司的文档也开始用markdown来写了,就会遇到一个问题：如何上传图片？ 最开始我不知道图床啥的,就是自己先把图片上传到 github ,然后再手动引用连接到文章中,这样的也能实现markdown的图片引用. 但是不够优雅,而且很麻烦.上传一张图片有4到5步操作">
+<meta name="keywords" content="markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Atom 编写 markdown 上传图片">
+<meta property="og:url" content="http://yoursite.com/2017/07/23/Atom-编写-markdown-上传图片/index.html">
+<meta property="og:site_name" content="Mari&#39;s Notes">
+<meta property="og:description" content="因为对markdown比较感兴趣,平时的文档编写都是用markdown来完成.以前是用csdn的博客编辑器,支持图片上传,预览. 最近在公司的文档也开始用markdown来写了,就会遇到一个问题：如何上传图片？ 最开始我不知道图床啥的,就是自己先把图片上传到 github ,然后再手动引用连接到文章中,这样的也能实现markdown的图片引用. 但是不够优雅,而且很麻烦.上传一张图片有4到5步操作">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/57ba925c75d800e6bfaeb1c3ddbf171d.png">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/d9153249393eb1c106781ed1c6866207.png">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/6189cfff45711be2724861ae433c548d.png">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/860bd5505cf4ca4a196672eef5f10b26.png">
+<meta property="og:image" content="http://otiwf3ulm.bkt.clouddn.com/da79c8140fd97dc4248e3d616d06b3a9.png">
+<meta property="og:updated_time" content="2018-06-09T09:12:58.139Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Atom 编写 markdown 上传图片">
+<meta name="twitter:description" content="因为对markdown比较感兴趣,平时的文档编写都是用markdown来完成.以前是用csdn的博客编辑器,支持图片上传,预览. 最近在公司的文档也开始用markdown来写了,就会遇到一个问题：如何上传图片？ 最开始我不知道图床啥的,就是自己先把图片上传到 github ,然后再手动引用连接到文章中,这样的也能实现markdown的图片引用. 但是不够优雅,而且很麻烦.上传一张图片有4到5步操作">
+<meta name="twitter:image" content="http://otiwf3ulm.bkt.clouddn.com/57ba925c75d800e6bfaeb1c3ddbf171d.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/23/Atom-编写-markdown-上传图片/"/>
+
+
+
+
+
+  <title>Atom 编写 markdown 上传图片 | Mari's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mari's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/23/Atom-编写-markdown-上传图片/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mari">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mari's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Atom 编写 markdown 上传图片</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T15:34:13+08:00">
+                2017-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Markdown/" itemprop="url" rel="index">
+                    <span itemprop="name">Markdown</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>因为对markdown比较感兴趣,平时的文档编写都是用markdown来完成.以前是用csdn的博客编辑器,支持图片上传,预览. 最近在公司的文档也开始用markdown来写了,就会遇到一个问题：如何上传图片？</p>
+<p>最开始我不知道图床啥的,就是自己先把图片上传到 github ,然后再手动引用连接到文章中,这样的也能实现markdown的图片引用. 但是不够优雅,而且很麻烦.上传一张图片有4到5步操作.</p>
+<p>然后发现了 Atom编辑器的两个插件,使用 7牛 作为图床可以实现： qq截图,然后直接在 Atom 的编辑页面 <code>ctrl+v</code> 粘贴, 弹出上传图片提示，会让你填写一个 <strong>title</strong> ，点击enter会自动构建一条markdown图片语句。这样上传图片就完成了.</p>
+<p>效果如下：<br><img src="http://otiwf3ulm.bkt.clouddn.com/57ba925c75d800e6bfaeb1c3ddbf171d.png" alt="七牛云图床,一键上传图片"></p>
+<p>这个就是我一键上传的图片,是不是很简单! 下面我就给大家介绍实现的方法:</p>
+<h3 id="第一步-注册7牛云"><a href="#第一步-注册7牛云" class="headerlink" title="第一步, 注册7牛云"></a>第一步, 注册7牛云</h3><p>7牛云的注册,新建空间就不过多介绍了.</p>
+<p>吴同学博客: <a href="http://wuxiaolong.me/2014/10/30/qiniu-photo-bed/" target="_blank" rel="noopener">使用七牛作为github博客的图床
+</a></p>
+<p>佚名大神博客: <a href="https://xbotao.github.io/hexo-admin-qiniu/2017/02/08/qiniu.html" target="_blank" rel="noopener">如何使用七牛</a></p>
+<p>相信大家可以搞定的.</p>
+<h3 id="第二步-下载-markdown-assistant-qiniu-uploader-插件"><a href="#第二步-下载-markdown-assistant-qiniu-uploader-插件" class="headerlink" title="第二步, 下载 markdown-assistant,qiniu-uploader 插件"></a>第二步, 下载 markdown-assistant,qiniu-uploader 插件</h3><p><img src="http://otiwf3ulm.bkt.clouddn.com/d9153249393eb1c106781ed1c6866207.png" alt="chajian"></p>
+<p>安装好插件后还需要对它们进行设置:</p>
+<p>设置markdown-assistant的时候发现，会让你填一个上传插件，而且默认已经帮你填好了qiniu-uploader，其实你也就什么都不用设置了。</p>
+<p>如下图:</p>
+<p><img src="http://otiwf3ulm.bkt.clouddn.com/6189cfff45711be2724861ae433c548d.png" alt="markdown-assistant"></p>
+<p>设置qiniu-uploader，主要设置四个参数：</p>
+<p><img src="http://otiwf3ulm.bkt.clouddn.com/860bd5505cf4ca4a196672eef5f10b26.png" alt="qiniu-uploader"></p>
+<h3 id="qiniu-uploader-使用报错解决方法"><a href="#qiniu-uploader-使用报错解决方法" class="headerlink" title="qiniu-uploader 使用报错解决方法"></a>qiniu-uploader 使用报错解决方法</h3><p>我自己在使用 <code>qiniu-uploader</code> 时Atom提示错误,如下图:</p>
+<p><img src="http://otiwf3ulm.bkt.clouddn.com/da79c8140fd97dc4248e3d616d06b3a9.png" alt="qiniu-error"></p>
+<p>可能你们也会遇到这个问题,<br><a href="https://github.com/knightli/qiniu-uploader/issues/6" target="_blank" rel="noopener">解决方案地址</a></p>
+<p>这里我整理了一下步骤:</p>
+<ol>
+<li><p>先找到 Atom 的配置文件,再找到插件的安装路径. 我的电脑是Windows系统,路径是是这样的 : <code>C:\Users\Administrator\.atom\packages\qiniu-uploader\node_modules\qiniu\qiniu</code></p>
+</li>
+<li><p>替换 <code>\qiniu</code> 文件夹下面的三个 .js 文件: <code>io.js</code>,<code>rpc.js</code>,<code>zone.js</code>, 然后就ok了</p>
+</li>
+</ol>
+<p>为了方便大家更换这三个文件,我就贴出来了:</p>
+<p>os.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">var conf = require(&apos;./conf&apos;);</span><br><span class="line">var util = require(&apos;./util&apos;);</span><br><span class="line">var rpc = require(&apos;./rpc&apos;);</span><br><span class="line">var fs = require(&apos;fs&apos;);</span><br><span class="line">var getCrc32 = require(&apos;crc32&apos;);</span><br><span class="line">var url = require(&apos;url&apos;);</span><br><span class="line">var mime = require(&apos;mime&apos;);</span><br><span class="line">var Readable = require(&apos;stream&apos;).Readable;</span><br><span class="line">var formstream = require(&apos;formstream&apos;);</span><br><span class="line">var urllib = require(&apos;urllib&apos;);</span><br><span class="line">var zone = require(&apos;./zone&apos;);</span><br><span class="line"></span><br><span class="line">exports.UNDEFINED_KEY = &apos;?&apos;</span><br><span class="line">exports.PutExtra = PutExtra;</span><br><span class="line">exports.PutRet = PutRet;</span><br><span class="line">exports.put = put;</span><br><span class="line">exports.putWithoutKey = putWithoutKey;</span><br><span class="line">exports.putFile = putFile;</span><br><span class="line">exports.putReadable = putReadable;</span><br><span class="line">exports.putFileWithoutKey = putFileWithoutKey;</span><br><span class="line"></span><br><span class="line">// @gist PutExtra</span><br><span class="line">function PutExtra(params, mimeType, crc32, checkCrc) &#123;</span><br><span class="line">  this.params = params || &#123;&#125;;</span><br><span class="line">  this.mimeType = mimeType || null;</span><br><span class="line">  this.crc32 = crc32 || null;</span><br><span class="line">  this.checkCrc = checkCrc || 0;</span><br><span class="line">&#125;</span><br><span class="line">// @endgist</span><br><span class="line"></span><br><span class="line">function PutRet(hash, key) &#123;</span><br><span class="line">  this.hash = hash || null;</span><br><span class="line">  this.key = key || null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// onret: callback function instead of ret</span><br><span class="line">function putReadable (uptoken, key, rs, extra, onret) &#123;</span><br><span class="line">  if (!extra) &#123;</span><br><span class="line">    extra = new PutExtra();</span><br><span class="line">  &#125;</span><br><span class="line">  if (!extra.mimeType) &#123;</span><br><span class="line">    extra.mimeType = &apos;application/octet-stream&apos;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (!key) &#123;</span><br><span class="line">    key = exports.UNDEFINED_KEY;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  rs.on(&quot;error&quot;, function (err) &#123;</span><br><span class="line">      onret(&#123;code: -1, error: err.toString()&#125;, &#123;&#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  // 设置上传域名</span><br><span class="line">  // zone.up_host(uptoken, conf);</span><br><span class="line">  zone.up_host_async(uptoken, conf, function() &#123;</span><br><span class="line">      var form = getMultipart(uptoken, key, rs, extra);</span><br><span class="line">      return rpc.postMultipart(conf.UP_HOST, form, onret);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function put(uptoken, key, body, extra, onret) &#123;</span><br><span class="line">  var rs = new Readable();</span><br><span class="line">  rs.push(body);</span><br><span class="line">  rs.push(null);</span><br><span class="line"></span><br><span class="line">  if (!extra) &#123;</span><br><span class="line">    extra = new PutExtra();</span><br><span class="line">  &#125;</span><br><span class="line">  if (extra.checkCrc == 1) &#123;</span><br><span class="line">    var bodyCrc32 = getCrc32(body);</span><br><span class="line">    extra.crc32 = &apos;&apos; + parseInt(bodyCrc32, 16);</span><br><span class="line">  &#125; else if (extra.checkCrc == 2 &amp;&amp; extra.crc32) &#123;</span><br><span class="line">    extra.crc32 = &apos;&apos; + extra.crc32</span><br><span class="line">  &#125;</span><br><span class="line">  return putReadable(uptoken, key, rs, extra, onret)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function putWithoutKey(uptoken, body, extra, onret) &#123;</span><br><span class="line">  return put(uptoken, null, body, extra, onret);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getMultipart(uptoken, key, rs, extra) &#123;</span><br><span class="line"></span><br><span class="line">  var form = formstream();</span><br><span class="line"></span><br><span class="line">  form.field(&apos;token&apos;, uptoken);</span><br><span class="line">  if (key != exports.UNDEFINED_KEY) &#123;</span><br><span class="line">    form.field(&apos;key&apos;, key);</span><br><span class="line">  &#125;</span><br><span class="line">  form.stream(&apos;file&apos;, rs, key, extra.mimeType);</span><br><span class="line"></span><br><span class="line">  if (extra.crc32) &#123;</span><br><span class="line">    form.field(&apos;crc32&apos;, extra.crc32);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (var k in extra.params) &#123;</span><br><span class="line">    form.field(k, extra.params[k]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return form;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function putFile(uptoken, key, loadFile, extra, onret) &#123;</span><br><span class="line"></span><br><span class="line">  var rs = fs.createReadStream(loadFile);</span><br><span class="line"></span><br><span class="line">  if (!extra) &#123;</span><br><span class="line">    extra = new PutExtra();</span><br><span class="line">  &#125;</span><br><span class="line">  if (extra.checkCrc == 1) &#123;</span><br><span class="line">    var fileCrc32 = getCrc32(fs.readFileSync(loadFile));</span><br><span class="line">    extra.crc32 = &apos;&apos; + parseInt(fileCrc32, 16);</span><br><span class="line">  &#125; else if (extra.checkCrc == 2 &amp;&amp; extra.crc32) &#123;</span><br><span class="line">    extra.crc32 = &apos;&apos; + extra.crc32</span><br><span class="line">  &#125;</span><br><span class="line">  if (!extra.mimeType) &#123;</span><br><span class="line">    extra.mimeType = mime.lookup(loadFile);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return putReadable(uptoken, key, rs, extra, onret);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function putFileWithoutKey(uptoken, loadFile, extra, onret) &#123;</span><br><span class="line">  return putFile(uptoken, null, loadFile, extra, onret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>rpc.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">var urllib = require(&apos;urllib&apos;);</span><br><span class="line">var util = require(&apos;./util&apos;);</span><br><span class="line">var conf = require(&apos;./conf&apos;);</span><br><span class="line"></span><br><span class="line">exports.postMultipart = postMultipart;</span><br><span class="line">exports.postWithForm = postWithForm;</span><br><span class="line">exports.postWithoutForm = postWithoutForm;</span><br><span class="line"></span><br><span class="line">function postMultipart(uri, form, onret) &#123;</span><br><span class="line">  return post(uri, form, form.headers(), onret);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function postWithForm(uri, form, token, onret) &#123;</span><br><span class="line">  var headers = &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</span><br><span class="line">  &#125;;</span><br><span class="line">  if (token) &#123;</span><br><span class="line">    headers[&apos;Authorization&apos;] = token;</span><br><span class="line">  &#125;</span><br><span class="line">  return post(uri, form, headers, onret);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function postWithoutForm(uri, token, onret) &#123;</span><br><span class="line">  var headers = &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;,</span><br><span class="line">  &#125;;</span><br><span class="line">  if (token) &#123;</span><br><span class="line">    headers[&apos;Authorization&apos;] = token;</span><br><span class="line">  &#125;</span><br><span class="line">  return post(uri, null, headers, onret);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function post(uri, form, headers, onresp) &#123;</span><br><span class="line">  headers = headers || &#123;&#125;;</span><br><span class="line">  headers[&apos;User-Agent&apos;] = headers[&apos;User-Agent&apos;] || conf.USER_AGENT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  var data = &#123;</span><br><span class="line">    headers: headers,</span><br><span class="line">    method: &apos;POST&apos;,</span><br><span class="line">    dataType: &apos;json&apos;,</span><br><span class="line">    timeout: conf.RPC_TIMEOUT,</span><br><span class="line">  &#125;;</span><br><span class="line">  if (Buffer.isBuffer(form) || typeof form === &apos;string&apos;) &#123;</span><br><span class="line">    data.content = form;</span><br><span class="line">  &#125; else if (form) &#123;</span><br><span class="line">    data.stream = form;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    data.headers[&apos;Content-Length&apos;] = 0;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  var req = urllib.request(uri, data, function(err, result, res) &#123;</span><br><span class="line">    var rerr = null;</span><br><span class="line">    if (err || Math.floor(res.statusCode/100) !== 2) &#123;</span><br><span class="line">      rerr = &#123;code: res&amp;&amp;res.statusCode||-1, error: err||result&amp;&amp;result.error||&apos;&apos;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    onresp(rerr, result, res);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  return req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>zone.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">// var request = require(&apos;urllib-sync&apos;).request;</span><br><span class="line">var urllib = require(&apos;urllib&apos;);</span><br><span class="line">var util = require(&apos;./util&apos;);</span><br><span class="line">//conf 为全局变量</span><br><span class="line">exports.up_host = function (uptoken, conf)&#123;</span><br><span class="line"></span><br><span class="line">    var version = process.versions;</span><br><span class="line">    var num = version.node.split(&quot;.&quot;)[0];</span><br><span class="line"></span><br><span class="line">    // node 版本号低于 1.0.0, 使用默认域名上传，可以在conf中指定上传域名</span><br><span class="line">    if(num &lt; 1 )&#123;</span><br><span class="line">        conf.AUTOZONE = false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!conf.AUTOZONE)&#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var ak = uptoken.toString().split(&quot;:&quot;)[0];</span><br><span class="line">    var tokenPolicy = uptoken.toString().split(&quot;:&quot;)[2];</span><br><span class="line">    var tokenPolicyStr = new Buffer(tokenPolicy, &apos;base64&apos;).toString();</span><br><span class="line">    var json_tokenPolicyStr = JSON.parse(tokenPolicyStr);</span><br><span class="line"></span><br><span class="line">    var scope = json_tokenPolicyStr.scope;</span><br><span class="line">    var bucket = scope.toString().split(&quot;:&quot;)[0];</span><br><span class="line"></span><br><span class="line">    // bucket 相同，上传域名仍在过期时间内</span><br><span class="line">    if((new Date().getTime() &lt; conf.EXPIRE) &amp;&amp; bucket == conf.BUCKET)&#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //记录bucket名</span><br><span class="line">    conf.BUCKET = bucket;</span><br><span class="line"></span><br><span class="line">    var request_url = &apos;http://uc.qbox.me/v1/query?ak=&apos;+ ak + &apos;&amp;bucket=&apos; + bucket;</span><br><span class="line"></span><br><span class="line">    var res = request(&apos;http://uc.qbox.me/v1/query?ak=&apos;+ ak + &apos;&amp;bucket=&apos; + bucket, &#123;</span><br><span class="line">      &apos;headers&apos;: &#123;</span><br><span class="line">        &apos;Content-Type&apos;: &apos;application/json&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    if(res.statusCode == 200)&#123;</span><br><span class="line"></span><br><span class="line">        var json_str = JSON.parse(res.body.toString());</span><br><span class="line"></span><br><span class="line">        //判断设置使用的协议, 默认使用http</span><br><span class="line">        if(conf.SCHEME == &apos;http&apos;)&#123;</span><br><span class="line">            conf.UP_HOST = json_str.http.up[1];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            conf.UP_HOST = json_str.https.up[0];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        conf.EXPIRE = 86400 + new Date().getTime();</span><br><span class="line"></span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        var err = new Error(&apos;Server responded with status code &apos; + res.statusCode + &apos;:\n&apos; + res.body.toString());</span><br><span class="line">        err.statusCode = res.statusCode;</span><br><span class="line">        err.headers = res.headers;</span><br><span class="line">        err.body = res.body;</span><br><span class="line">        throw err;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exports.up_host_async = function (uptoken, conf, callback)&#123;</span><br><span class="line"></span><br><span class="line">    var version = process.versions;</span><br><span class="line">    var num = version.node.split(&quot;.&quot;)[0];</span><br><span class="line"></span><br><span class="line">    // node 版本号低于 1.0.0, 使用默认域名上传，可以在conf中指定上传域名</span><br><span class="line">    if(num &lt; 1 )&#123;</span><br><span class="line">        conf.AUTOZONE = false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!conf.AUTOZONE)&#123;</span><br><span class="line">        callback();</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var ak = uptoken.toString().split(&quot;:&quot;)[0];</span><br><span class="line">    var tokenPolicy = uptoken.toString().split(&quot;:&quot;)[2];</span><br><span class="line">    var tokenPolicyStr = new Buffer(tokenPolicy, &apos;base64&apos;).toString();</span><br><span class="line">    var json_tokenPolicyStr = JSON.parse(tokenPolicyStr);</span><br><span class="line"></span><br><span class="line">    var scope = json_tokenPolicyStr.scope;</span><br><span class="line">    var bucket = scope.toString().split(&quot;:&quot;)[0];</span><br><span class="line"></span><br><span class="line">    // bucket 相同，上传域名仍在过期时间内</span><br><span class="line">    if((new Date().getTime() &lt; conf.EXPIRE) &amp;&amp; bucket == conf.BUCKET)&#123;</span><br><span class="line">        callback();</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //记录bucket名</span><br><span class="line">    conf.BUCKET = bucket;</span><br><span class="line">    var request_url = &apos;http://uc.qbox.me/v1/query?ak=&apos;+ ak + &apos;&amp;bucket=&apos; + bucket;</span><br><span class="line">    var data = &#123;</span><br><span class="line">      contentType: &apos;application/json&apos;,</span><br><span class="line">      method: &apos;GET&apos;,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var req = urllib.request(request_url, data, function(err, result, res) &#123;</span><br><span class="line">      // console.log(result);</span><br><span class="line">      if(res.statusCode == 200)&#123;</span><br><span class="line">          // console.log(result);</span><br><span class="line">          var json_str = JSON.parse(result.toString());</span><br><span class="line">          // console.log(json_str);</span><br><span class="line">          //判断设置使用的协议, 默认使用http</span><br><span class="line">          if(conf.SCHEME == &apos;http&apos;)&#123;</span><br><span class="line">              conf.UP_HOST = json_str.http.up[1];</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">              conf.UP_HOST = json_str.https.up[0];</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          conf.EXPIRE = 86400 + new Date().getTime();</span><br><span class="line">          callback();</span><br><span class="line">          return;</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">          var err = new Error(&apos;Server responded with status code &apos; + res.statusCode + &apos;:\n&apos; + res.body.toString());</span><br><span class="line">          err.statusCode = res.statusCode;</span><br><span class="line">          err.headers = res.headers;</span><br><span class="line">          err.body = res.body;</span><br><span class="line">          throw err;</span><br><span class="line">          callback();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/轻量级自定义圆角ImageView-适配-Android-L/" rel="prev" title="轻量级自定义圆角ImageView-适配-Android-L">
+                轻量级自定义圆角ImageView-适配-Android-L <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mari</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-注册7牛云"><span class="nav-number">1.</span> <span class="nav-text">第一步, 注册7牛云</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-下载-markdown-assistant-qiniu-uploader-插件"><span class="nav-number">2.</span> <span class="nav-text">第二步, 下载 markdown-assistant,qiniu-uploader 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qiniu-uploader-使用报错解决方法"><span class="nav-number">3.</span> <span class="nav-text">qiniu-uploader 使用报错解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mari</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
